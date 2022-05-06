@@ -58,7 +58,7 @@ class ScrapedAssetRepo extends SPYBaseRepo {
       );
       return {
         records: queryResult.results[0] as ScrapedAssetDBO[],
-        count: (queryResult.results[1] as RowCountDBO[])[0].count,
+        count: (queryResult.results[1] as RowCountDBO[])[0].Count,
       };
     } catch (e) {
       throw e;

@@ -9,6 +9,12 @@ const UserSessionRoutes: SPYRouteProps[] = [
     method: SPYRouteMethod.POST,
     authType: SPYAuthenticatorType.PUBLIC,
   },
+  {
+    path: "/auth/safesignin",
+    handler: (props, req) => new UserSessionController(props).safeSignIn(req),
+    method: SPYRouteMethod.POST,
+    authType: SPYAuthenticatorType.PUBLIC,
+  },
 ];
 
 export default UserSessionRoutes;

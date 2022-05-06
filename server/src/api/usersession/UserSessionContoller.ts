@@ -33,12 +33,16 @@ class UserSessionController extends SPYBaseContoller {
     }
   }
 
-  async safeSignIn(request: SafeSignInRequestDTO): Promise<SignInResponseDTO> {
+  async safeSignIn(
+    request: Request<{}, {}, SafeSignInRequestDTO>
+  ): Promise<SignInResponseDTO> {
     try {
+      const { email, password }: SignInRequestDTO = JSON.parse(
+        Encryptor.decryptClientEncryption(request.body.payload)
+      );
+      const userSession = await this.userSessionService.create(email, password);
       return {
-        token: (
-          await this.userSessionService.create(request.payload, request.payload)
-        ).sessionId,
+        token: Encryptor.encrypt(userSession.sessionId),
       };
     } catch (e) {
       throw e;

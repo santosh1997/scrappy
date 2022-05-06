@@ -2,7 +2,14 @@ import crypto from "crypto";
 import { getEnvVar } from "../processor";
 import { AESConfig } from "./encryptor.constants";
 class Encrypt {
-  constructor() {}
+  private RSAPrivateKey: crypto.KeyObject;
+  constructor() {
+    this.RSAPrivateKey = crypto.createPrivateKey({
+      key: Buffer.from(getEnvVar("RSA_PRIVATE_KEY"), "base64"),
+      format: "der",
+      type: "pkcs1",
+    });
+  }
 
   private formatCipher(
     cipher: crypto.Cipher,
@@ -50,11 +57,10 @@ class Encrypt {
     return crypto
       .privateDecrypt(
         {
-          key: getEnvVar("RSA_PRIVATE_KEY"),
-          padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
-          oaepHash: "sha256",
+          key: this.RSAPrivateKey,
+          padding: crypto.constants.RSA_PKCS1_PADDING,
         },
-        Buffer.from(encryptedData)
+        Buffer.from(encryptedData, "base64")
       )
       .toString();
   }

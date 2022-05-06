@@ -1,7 +1,6 @@
 import { Router } from "express";
 import Authenticator from "../../authenticator";
 import errorHandler from "../../errorHandler/errorHandler";
-import { defaultErrorResponse } from "../../errorHandler/errorHandler.contant";
 import Routes from "../routes";
 import { SPYRouteProps } from "./routes.type";
 

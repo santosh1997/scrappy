@@ -6,6 +6,11 @@ import { getEnvVar } from "../crosscutting/processor";
 
 (() => {
   const attachMiddlewares = (app: Express) => {
+    app.use(function (req, res, next) {
+      res.header("Access-Control-Allow-Origin", getEnvVar("APP_URL"));
+      res.header("Access-Control-Allow-Headers", "*");
+      next();
+    });
     app.use(bodyParser.json());
     attachCompressor(app);
     attachRouter(app);

@@ -1,8 +1,9 @@
 {
   "name": "scrappyserver",
   "version": "1.0.0",
-  "description": "HeadKick Core API",
+  "description": "Scrappy Server",
   "main": "build/api/index.js",
+  "private": true,
   "scripts": {
     "packages:init": "yarn --registry=https://registry.yarnpkg.com",
     "format:check": "prettier --check .",

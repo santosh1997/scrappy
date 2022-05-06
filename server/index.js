@@ -1,0 +1,22 @@
+const crypto = require("crypto");
+const encdata =
+  "c/ln1UKuv8mdsLf6Ur/N6jduJBV7OnZiQqYcBpXUliL52v9kBNHkna4joMzaVWoxk0aImklyXxTq08vW46YuS0eouzXkBdcjhPAUHVNZWuazvQumRo+8bACsa5Cnlfl9IJ4vaor+XCDICahtHY2NLCPzx8xkzXJhc85XZr5sosmia1zBPePG5Nrh0yO+jKUDIgTcZ9o8EicGdGwyAEJI0jf14tnkG8B/GQ4QvesdYfL3Hbj67UTqyGbHozf5gsh2pnLF1mlQDTVBZQrO3OPUqmWUSlkespewO9tzhfZ1Baccvj3Bq492xJmg6KtuudpS21zBisiZ3W9FsHVlu9+AaQ==";
+const private = crypto.createPrivateKey({
+  key: Buffer.from(
+    `MIIEogIBAAKCAQEAzPMh26OnjMfkgUSYT2jFaJND0dArBanabE8I9liXcu2+eJqqs+7ZFpQcRdsQFI8B1udz81xbhqnAAaTD1a+UG0tVzcMNPE83c1xdpwQKp2ecGl0WLzT/xHw08NCsG3gU71KXB7Cupb1noP2yzK7YoTFngbMtbAgEzRaA5mtSgAlEtQHOp5qHCsaU7aUg1Lj1q1hqWg/DJlhpsXAxA65/OSuv1GmTXCAyilfP1xdDSPyCPKV/vDdiAnYRdBhZRdxeMHoiNeWlOQu/qtiOBUaUcSxa50eqH9rYybnnmJS9nq9WJZZDXXopRqVKaQDZCLYGo2wC4kP1Eo4u3OBi+cfVaQIBJQKCAQAWKB9WA9rDHIdn671wXlqH2JG10VDCV408JDhR+71YiGeeVejw240XMptF0n5HaWf7jqTAXQL5zSmDoxwXGeZ/fcQWPpmlp7L3tvVeKfNQXjpjtwlRNil9BoJDjC5IKKhROVxviLjvUr8YUsc4uPTTJ++DpKr27Bwx2OtXLjJutLNKtkQHLBMrFJU9I6LvmmqG4ML5Ch/JSsA9WwT4v+rShDLv2OS3XlY6lXyIjfETlc7DJBSNoMSkaGDOT/MGe7ScY3cDuu7oGKOtAXZx1XIVPW3kxb7BHCcyz+uYmRN7kCa/ACd8QVlY4pEJQM0Lz+kvELGdl8cO5PwEySLjARPtAoGBAOrcSfXAUSoare3uitLNZ0FPRn+tbfWRnO1rZNE11ZozhRBgADT+RY1GMwxk9MrAKuL40Fuw5FcLrMP1/yE270OByU+TJO202m9MsIzTwxdJVKUuCgyo0SGvBgG4tncaxJiiFmosvJCEsz/HIONvdEGKuyMDSRZqa1Fj74RbVp1FAoGBAN9loeOk8auhmkKJkKre/Vr8ct8tBCeOyAoOgXHQ6ajqX8hJ0xq9sgemPgODAYKTp+a2x2XtQ/AGA84JtbAS9NQIGMXAP5WhTWZd2nmUjR3jX301GHj8xUyEsKKcVlJM9VccvmvzYR5Lwk0MSIzr/pglVnTtPu1eXMJMrFvqpz/VAoGBAJ6whP/+fAexKWlp02vW5ObwYBEUUTc436dWZrbfL3YHIo6GDfpK8LlmyIvVgs4u0N6McRtb2I3XdLvB47x/EF4LldvSH97h+1/1jAwgYTk/YrTMFKDFF675t/NTStravC/Hdu3LM0zkCmldCGJSOctrkzNVPzioxQ164Bso9VWBAoGBAJbxpLxoh517B11j3knwnVknHS8CvZ4wCp8C4ddH99L/OcyE6JWHF2zzyQlKrf5IF4A2T2CLjsTFyzgwEvptrFfpy4yI0QQ8jj4/ahrMJ/9wHezQ2S8nVOCsrrMPr/JrWamP9kjwjbqGNy0j+atTWP8EeK/ekk1bbxt/6hSXoXBRAoGAPvRlTeiW7u3SffHWwPg5ekrXf/yVbZZzxnLd37pDlqkVGOtSdNPqkflnfyAwBdLci2Kwwbh5dusJ6Ch44FLAlpRMhbWK0jlAzjCbkqabvfyb901Ot++xfwmf2uh7hqDx4Fd3xB9zoR/262P/p/jM16Cfbu/BYgt40Ykql/p56Pk=`,
+    "base64"
+  ),
+  format: "der",
+  type: "pkcs1",
+});
+const data = crypto
+  .privateDecrypt(
+    {
+      key: private,
+      padding: crypto.constants.RSA_PKCS1_PADDING,
+    },
+    Buffer.from(encdata, "base64")
+  )
+  .toString();
+
+console.log(data);
