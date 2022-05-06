@@ -1,4 +1,4 @@
-import { Select, Input, Button, Row, Col, message } from "antd";
+import { Select, Input, Button, Col, message } from "antd";
 import { useState } from "react";
 import ServiceConsumer from "../../../crosscutting/serviceconsumer/serviceConsumer";
 import {
@@ -49,8 +49,7 @@ const AddScrapableLink = (): JSX.Element => {
     }
   };
   return (
-    <Row>
-      <Col span={6}></Col>
+    <>
       <Col span={8}>
         <Input
           addonBefore={
@@ -64,8 +63,7 @@ const AddScrapableLink = (): JSX.Element => {
       <Col span={4}>
         <Button onClick={onSubmit}>Scrap</Button>
       </Col>
-      <Col span={6}></Col>
-    </Row>
+    </>
   );
 };
 

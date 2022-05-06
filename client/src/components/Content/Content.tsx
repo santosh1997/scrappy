@@ -1,4 +1,4 @@
-import { PaginationProps, Select, Table } from "antd";
+import { Col, PaginationProps, Select, Table } from "antd";
 import { useEffect, useState } from "react";
 import ServiceConsumer from "../../crosscutting/serviceconsumer/serviceConsumer";
 import {
@@ -6,6 +6,7 @@ import {
   RequestType,
 } from "../../crosscutting/serviceconsumer/serviceConsumer.type";
 import AddScrapableLink from "./AddScrapableLink/AddScrapableLink";
+import { ContentHeader } from "./Content.style";
 import {
   ColumnConfig,
   GridProps,
@@ -95,12 +96,26 @@ const Content = (): JSX.Element => {
 
   return (
     <>
-      <AddScrapableLink />
-      <Select defaultValue={data.typeFilter} onChange={onFilterChange}>
-        <Option value={SPYFileType.Any.toString()}>Show all files</Option>
-        <Option value={SPYFileType.Image.toString()}>Show Image files</Option>
-        <Option value={SPYFileType.Video.toString()}>Show Video files</Option>
-      </Select>
+      <ContentHeader>
+        <AddScrapableLink />
+        <Col span={8}></Col>
+        <Col span={4}>
+          <Select
+            defaultValue={data.typeFilter}
+            onChange={onFilterChange}
+            style={{ width: "100%" }}
+          >
+            <Option value={SPYFileType.Any.toString()}>Show all files</Option>
+            <Option value={SPYFileType.Image.toString()}>
+              Show Image files
+            </Option>
+            <Option value={SPYFileType.Video.toString()}>
+              Show Video files
+            </Option>
+          </Select>
+        </Col>
+      </ContentHeader>
+
       <Table<RecordType>
         loading={data.isLoading}
         columns={columns}
