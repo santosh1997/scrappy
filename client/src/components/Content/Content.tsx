@@ -1,4 +1,4 @@
-import { Col, PaginationProps, Select, Table } from "antd";
+import { Button, Col, PaginationProps, Select, Table } from "antd";
 import { useEffect, useState } from "react";
 import ServiceConsumer from "../../crosscutting/serviceconsumer/serviceConsumer";
 import {
@@ -98,7 +98,12 @@ const Content = (): JSX.Element => {
     <>
       <ContentHeader>
         <AddScrapableLink />
-        <Col span={8}></Col>
+        <Col span={6}></Col>
+        <Col span={2}>
+          <Button onClick={() => refreshData(data.typeFilter, data.gridProps)}>
+            Refresh
+          </Button>
+        </Col>
         <Col span={4}>
           <Select
             defaultValue={data.typeFilter}
