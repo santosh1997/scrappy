@@ -11,10 +11,12 @@
     "lint:check": "eslint .",
     "build": "npx tsc",
     "serve": "yarn build && node build/api/index.js",
+    "serve:nobuild": "node build/api/index.js",
     "serve:prod": "node ./node_modules/cross-env/src/bin/cross-env SPY_DOTENV_CONFIG_PATH=\"/config/prod.env\" yarn run serve",
     "serve:local": "node ./node_modules/cross-env/src/bin/cross-env SPY_DOTENV_CONFIG_PATH=\"/config/local.env\" yarn run serve",
     "debug:serve": "node ./node_modules/cross-env/src/bin/cross-env SPY_DOTENV_CONFIG_PATH=\"/config/local.env\" node ./node_modules/nodemon/bin/nodemon.js -e ts,json,yaml,env --watch src --exec \"yarn run serve\"",
     "work": "yarn build && node ./build/worker/index.js",
+    "work:nobuild": "node ./build/worker/index.js",
     "work:local": "node ./node_modules/cross-env/src/bin/cross-env SPY_DOTENV_CONFIG_PATH=\"/config/local.env\"  yarn run work",
     "debug:work": "node ./node_modules/cross-env/src/bin/cross-env SPY_DOTENV_CONFIG_PATH=\"/config/local.env\"  node ./node_modules/nodemon/bin/nodemon.js -e ts,json,yaml,env --watch src --exec \"yarn run work\""
   },

@@ -3,20 +3,30 @@ import ScrapableLinkService from "../service/scrapablelink/ScrapableLinkService"
 import ScrapedAssetService from "../service/scrappedasset/ScrapedAssetService";
 import puppeteer from "puppeteer";
 import cheerio from "cheerio";
+import { getEnvVar } from "../crosscutting/processor";
 
 (async function scrap() {
   const userContext: SPYUser = { userId: "{{__SYSTEM_USER__}}" },
     scrapedAssetService = new ScrapedAssetService({ userContext }),
     scrapableLinkService = new ScrapableLinkService({ userContext }),
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch(getEnvVar("USE_SPECIFIC_CHROMIUM_CONFIG") === "true" ? {
+      headless: true,
+      executablePath: '/usr/bin/chromium-browser',
+      args: [
+        '--no-sandbox',
+        '--disable-gpu',
+      ]
+  } : undefined);
 
   const perform = async () => {
     try {
       const scrapableLink = await scrapableLinkService.get();
 
       if (scrapableLink) {
+        console.log(`[SPY_WORKER_DEBUG]:${new Date().toISOString()}: ${scrapableLink.link} scrap starts...`);
         const assetURLs: string[] = [];
         const page = await browser.newPage();
+        await page.setDefaultNavigationTimeout(0);
         await page.goto(scrapableLink.link, { waitUntil: "networkidle0" });
         const content = await page.content();
         await page.close();

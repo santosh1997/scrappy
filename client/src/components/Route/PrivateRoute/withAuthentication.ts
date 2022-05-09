@@ -4,9 +4,12 @@ import { AUTH_TOKEN_STORAGE_KEY, LOGIN_PATH } from "./PrivateRoute.contant";
 const withAuthentication = (
   component: JSX.Element,
   history: History
-): JSX.Element => {
+): JSX.Element | null => {
   const authToken = localStorage.getItem(AUTH_TOKEN_STORAGE_KEY) || "";
-  if (!authToken) history.push(LOGIN_PATH);
+  if (!authToken) {
+    history.push(LOGIN_PATH);
+    return null;
+  }
   return component;
 };
 

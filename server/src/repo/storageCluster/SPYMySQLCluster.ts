@@ -72,13 +72,13 @@ class SPYMySQLCluster {
     return new Promise((resolve, reject) => {
       const pool = isWrite ? this.masterPool : this.getReadOnlyPool();
       pool.getConnection((error, connection) => {
-        connection.release();
         if (error) reject(new SPYMySQLError(error));
         else
           connection.query<RowDataPacket[][] | RowDataPacket[]>(
             query.queryText,
             query.queryParams,
             (queryError, results) => {
+              connection.release();
               if (queryError) reject(new SPYMySQLQueryError(queryError));
               else {
                 const resultSetHeader = segregarteResultSetHeader
